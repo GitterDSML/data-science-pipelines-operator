@@ -418,9 +418,13 @@ spec:
                     type: object
                   grpc:
                     properties:
+                      certificateContents:
+                        type: string
                       image:
                         type: string
                       port:
+                        type: string
+                      privateKeyContents:
                         type: string
                       resources:
                         description: ResourceRequirements structures compute resource

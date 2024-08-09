@@ -304,7 +304,7 @@ func (r *DSPAReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.
 			return ctrl.Result{}, err
 		}
 
-		err = r.ReconcileMLMD(dspa, params)
+		err = r.ReconcileMLMD(ctx, dspa, params)
 		if err != nil {
 			r.setStatusAsNotReady(config.MLMDProxyReady, err, dspaStatus.SetMLMDProxyStatus)
 			return ctrl.Result{}, err
