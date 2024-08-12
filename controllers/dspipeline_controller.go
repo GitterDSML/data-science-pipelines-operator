@@ -19,6 +19,7 @@ package controllers
 import (
 	"context"
 	"fmt"
+
 	"github.com/opendatahub-io/data-science-pipelines-operator/controllers/dspastatus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
@@ -152,6 +153,7 @@ func (r *DSPAReconciler) DeleteResourceIfItExists(ctx context.Context, obj clien
 //+kubebuilder:rbac:groups=snapshot.storage.k8s.io,resources=volumesnapshots,verbs=create;delete;get
 //+kubebuilder:rbac:groups=argoproj.io,resources=workflows,verbs=*
 //+kubebuilder:rbac:groups=argoproj.io,resources=workflowtaskresults,verbs=create;patch
+//+kubebuilder:rbac:groups=argoproj.io,resources=workflowartifactgctasks;workflowartifactgctasks/finalizers,verbs=*
 //+kubebuilder:rbac:groups=core,resources=pods;pods/exec;pods/log;services,verbs=*
 //+kubebuilder:rbac:groups=core;apps;extensions,resources=deployments;replicasets,verbs=*
 //+kubebuilder:rbac:groups=kubeflow.org,resources=*,verbs=*
