@@ -88,7 +88,27 @@ spec:
           volumeMounts:
             - name: mariadb-persistent-storage
               mountPath: /var/lib/mysql
+            {{ if .CustomExtraParams }}
+            - name: mariadb-proxy-tls
+              mountPath: /.mariadb/certs
+            - name: mariadb-tls-config
+              mountPath: /etc/my.cnf.d/mariadb-tls-config.cnf
+              subPath: mariadb-tls-config.cnf
+            {{ end }}
       volumes:
         - name: mariadb-persistent-storage
           persistentVolumeClaim:
             claimName: mariadb-{{.Name}}
+        {{ if .CustomExtraParams }}
+        - name: mariadb-proxy-tls
+          secret:
+            secretName: ds-pipelines-mariadb-proxy-tls-{{.Name}}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+        - name: mariadb-tls-config
+          configMap:
+            name: ds-pipelines-mariadb-tls-config-{{.Name}}
+        {{ end }}

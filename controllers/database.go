@@ -27,13 +27,14 @@ import (
 
 	"errors"
 
+	"os"
+
 	"github.com/go-logr/logr"
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	dspav1alpha1 "github.com/opendatahub-io/data-science-pipelines-operator/api/v1alpha1"
 	"github.com/opendatahub-io/data-science-pipelines-operator/controllers/config"
 	"k8s.io/apimachinery/pkg/util/json"
-	"os"
 )
 
 const dbSecret = "mariadb/generated-secret/secret.yaml.tmpl"
@@ -44,6 +45,7 @@ var mariadbTemplates = []string{
 	"mariadb/default/service.yaml.tmpl",
 	"mariadb/default/mariadb-sa.yaml.tmpl",
 	"mariadb/default/networkpolicy.yaml.tmpl",
+	"mariadb/default/tls-config.yaml.tmpl",
 }
 
 func tLSClientConfig(pems [][]byte) (*cryptoTls.Config, error) {

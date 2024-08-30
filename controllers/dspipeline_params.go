@@ -89,8 +89,8 @@ type DSPAParams struct {
 	CustomCABundle *dspa.CABundle
 	DSPONamespace  string
 	// Use to enable tls communication between component pods.
-	PodToPodTLS bool
-
+	PodToPodTLS             bool
+	CustomExtraParams       string
 	APIServerServiceDNSName string
 }
 
@@ -612,6 +612,11 @@ func (p *DSPAParams) ExtractParams(ctx context.Context, dsp *dspa.DataSciencePip
 		} else {
 			p.PodToPodTLS = *dsp.Spec.PodToPodTLS
 		}
+	}
+	if dsp.Spec.Database.CustomExtraParams != nil {
+		p.CustomExtraParams = *dsp.Spec.Database.CustomExtraParams
+	} else {
+		p.CustomExtraParams = ""
 	}
 
 	log := loggr.WithValues("namespace", p.Namespace).WithValues("dspa_name", p.Name)
