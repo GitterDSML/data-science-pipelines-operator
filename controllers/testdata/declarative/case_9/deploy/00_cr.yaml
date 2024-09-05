@@ -11,6 +11,7 @@ spec:
     minio:
       image: minio:test9
   database:
+    customExtraParams: '{"tls":"true"}'
     mariaDB:
       deploy: true
   mlpipelineUI:
