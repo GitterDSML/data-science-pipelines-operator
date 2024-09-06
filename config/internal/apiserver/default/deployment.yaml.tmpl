@@ -123,9 +123,6 @@ spec:
               value: "true"
             - name: METADATA_TLS_ENABLED
               value: "true"
-            {{ else }}
-            - name: METADATA_TLS_ENABLED
-              value: "false"
             {{ end }}
             {{ if (eq .DSPVersion "v2") }}
             ## Argo-Specific Env Vars ##
