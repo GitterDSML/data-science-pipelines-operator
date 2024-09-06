@@ -55,8 +55,6 @@ spec:
             - "--mlPipelineAPIServerName={{.APIServerServiceDNSName}}"
             {{ if .PodToPodTLS }}
             - "--mlPipelineServiceTLSEnabled=true"
-            {{ else }}
-            - "--mlPipelineServiceTLSEnabled=false"
             {{ end }}
             - "--namespace={{.Namespace}}"
             - "--mlPipelineServiceHttpPort=8888"
