@@ -198,3 +198,13 @@ func GetRouteIfAvailable(ctx context.Context, routeName, ns string, client clien
 	}
 	return true, route, nil
 }
+
+func GetMlmdGrpcCertificatesSecret(ctx context.Context, client client.Client, namespace string, dspaName string) (v1.Secret, error) {
+	secretName := types.NamespacedName{
+		Namespace: namespace,
+		Name:      "ds-pipeline-metadata-grpc-tls-certs-" + dspaName,
+	}
+	secret := v1.Secret{}
+	err := client.Get(ctx, secretName, &secret)
+	return secret, err
+}
