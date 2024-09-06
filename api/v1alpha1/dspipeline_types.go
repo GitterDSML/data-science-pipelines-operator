@@ -342,6 +342,10 @@ type GRPC struct {
 	Image     string                `json:"image,omitempty"`
 	// +kubebuilder:validation:Optional
 	Port string `json:"port"`
+	// +kubebuilder:validation:Optional
+	CertificateContents string `json:"certificateContents,omitempty"`
+	// +kubebuilder:validation:Optional
+	PrivateKeyContents string `json:"privateKeyContents,omitempty"`
 }
 
 type Writer struct {

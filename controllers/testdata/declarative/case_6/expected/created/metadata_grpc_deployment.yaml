@@ -30,6 +30,7 @@ spec:
             - --mysql_config_user=$(DBCONFIG_USER)
             - --mysql_config_password=$(DBCONFIG_PASSWORD)
             - --enable_database_upgrade=true
+            - --metadata_store_server_config_file=/mlmd-tls-config/config.proto
             - --mysql_config_sslrootcert=/dspa/custom-certs/user-ca-bundle.crt
           command:
             - /bin/metadata_store_server
@@ -75,9 +76,27 @@ spec:
           volumeMounts:
             - mountPath: /dspa/custom-certs
               name: ca-bundle
+            - mountPath: /mlmd-tls-config
+              name: ds-pipeline-metadata-grpc-tls-config-testdsp6
+            - mountPath: /etc/tls
+              name: ds-pipeline-metadata-grpc-tls-certs-testdsp6
+
       serviceAccountName: ds-pipeline-metadata-grpc-testdsp6
       volumes:
         - name: ca-bundle
           configMap:
             defaultMode: 420
             name: dsp-trusted-ca-testdsp6
+        - name: ds-pipeline-metadata-grpc-tls-config-testdsp6
+          secret:
+            defaultMode: 420
+            secretName: ds-pipeline-metadata-grpc-tls-config-secret-testdsp6
+        - name: ds-pipeline-metadata-grpc-tls-certs-testdsp6
+          secret:
+            defaultMode: 420
+            items:
+            - key: tls.key
+              path: tls.key
+            - key: tls.crt
+              path: tls.crt
+            secretName: ds-pipeline-metadata-grpc-tls-certs-testdsp6
